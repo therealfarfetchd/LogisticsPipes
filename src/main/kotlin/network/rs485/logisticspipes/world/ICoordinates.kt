@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016  RS485
+ * Copyright (c) 2019  RS485
  *
  * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
  * License 1.0.1, or MMPL. Please check the contents of the license located in
@@ -8,7 +8,7 @@
  * This file can instead be distributed under the license terms of the
  * MIT license:
  *
- * Copyright (c) 2016  RS485
+ * Copyright (c) 2019  RS485
  *
  * This MIT license was reworded to only match this file. If you use the regular
  * MIT license in your project, replace this copyright notice (this line and any
@@ -35,17 +35,16 @@
  * SOFTWARE.
  */
 
-package network.rs485.logisticspipes.util.items;
+package network.rs485.logisticspipes.world
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.datafix.FixTypes;
+interface ICoordinates {
 
-import net.minecraftforge.fml.common.FMLCommonHandler;
+    val xDouble: Double
+    val yDouble: Double
+    val zDouble: Double
 
-public class ItemStackLoader {
-	public static ItemStack loadAndFixItemStackFromNBT(NBTTagCompound nbt) {
-		NBTTagCompound fixed = FMLCommonHandler.instance().getDataFixer().process(FixTypes.ITEM_INSTANCE, nbt);
-		return new ItemStack(fixed);
-	}
+    val xInt: Int
+    val yInt: Int
+    val zInt: Int
+
 }
