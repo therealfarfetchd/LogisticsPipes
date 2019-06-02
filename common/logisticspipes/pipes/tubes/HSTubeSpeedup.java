@@ -86,7 +86,7 @@ public class HSTubeSpeedup extends CoreMultiBlockPipe {
 
 	@Override
 	public LPPositionSet<DoubleCoordinatesType<SubBlockTypeForShare>> getSubBlocks() {
-		LPPositionSet<DoubleCoordinatesType<SubBlockTypeForShare>> set = new LPPositionSet<>(DoubleCoordinatesType.class);
+		LPPositionSet<DoubleCoordinatesType<SubBlockTypeForShare>> set = new LPPositionSet<>(DoubleCoordinatesType::createEmpty);
 		set.add(new DoubleCoordinatesType<>(0, 0, -1, SubBlockTypeForShare.NON_SHARE));
 		set.add(new DoubleCoordinatesType<>(0, 0, -2, SubBlockTypeForShare.NON_SHARE));
 		set.add(new DoubleCoordinatesType<>(0, 0, -3, SubBlockTypeForShare.NON_SHARE));
@@ -116,7 +116,7 @@ public class HSTubeSpeedup extends CoreMultiBlockPipe {
 		}
 		posMin.add(pos);
 		posMax.add(pos);
-		LPPositionSet<DoubleCoordinates> set = new LPPositionSet<>(DoubleCoordinates.class);
+		LPPositionSet<DoubleCoordinates> set = new LPPositionSet<>(DoubleCoordinates::new);
 		set.add(posMin);
 		set.add(posMax);
 		AxisAlignedBB box = set.toABB();
@@ -185,7 +185,7 @@ public class HSTubeSpeedup extends CoreMultiBlockPipe {
 	public TileEntity getConnectedEndTile(EnumFacing output) {
 		if (orientation.dir1 == output) {
 			DoubleCoordinates pos = new DoubleCoordinates(0, 0, -3);
-			LPPositionSet<DoubleCoordinates> set = new LPPositionSet<>(DoubleCoordinates.class);
+			LPPositionSet<DoubleCoordinates> set = new LPPositionSet<>(DoubleCoordinates::new);
 			set.add(pos);
 			orientation.rotatePositions(set);
 			TileEntity subTile = pos.add(getLPPosition()).getTileEntity(getWorld());

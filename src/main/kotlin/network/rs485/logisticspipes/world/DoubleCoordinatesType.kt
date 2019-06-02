@@ -44,7 +44,7 @@ import net.minecraft.entity.Entity
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.math.BlockPos
 
-class DoubleCoordinatesType<T>(xCoord: Double, yCoord: Double, zCoord: Double, val type: T) : DoubleCoordinates(xCoord, yCoord, zCoord) {
+class DoubleCoordinatesType<out T>(xCoord: Double, yCoord: Double, zCoord: Double, val type: T) : DoubleCoordinates(xCoord, yCoord, zCoord) {
 
     constructor(coords: ICoordinates, type: T) : this(coords.xDouble, coords.yDouble, coords.zDouble, type)
 
@@ -60,14 +60,18 @@ class DoubleCoordinatesType<T>(xCoord: Double, yCoord: Double, zCoord: Double, v
 
     constructor(pos: BlockPos, type: T) : this(pos.x.toDouble(), pos.y.toDouble(), pos.z.toDouble(), type)
 
-    @Deprecated("Only called by reflection")
-    constructor(xCoord: Double, yCoord: Double, zCoord: Double) : this(xCoord, yCoord, zCoord, TODO("uhh what?"))
-
     override fun add(toAdd: DoubleCoordinates): DoubleCoordinatesType<T> {
         setXCoord(getXCoord() + toAdd.getXCoord())
         setYCoord(getYCoord() + toAdd.getYCoord())
         setZCoord(getZCoord() + toAdd.getZCoord())
         return this
+    }
+
+    companion object {
+        @JvmStatic
+        fun createEmpty(xCoord: Double, yCoord: Double, zCoord: Double): DoubleCoordinatesType<Nothing?> {
+            return DoubleCoordinatesType(xCoord, yCoord, zCoord, null)
+        }
     }
 
 }

@@ -58,7 +58,7 @@ public class HSTubeGain extends CoreMultiBlockPipe {
 
 	@Override
 	public LPPositionSet<DoubleCoordinatesType<SubBlockTypeForShare>> getSubBlocks() {
-		LPPositionSet<DoubleCoordinatesType<SubBlockTypeForShare>> list = new LPPositionSet<>(DoubleCoordinatesType.class);
+		LPPositionSet<DoubleCoordinatesType<SubBlockTypeForShare>> list = new LPPositionSet<>(DoubleCoordinatesType::createEmpty);
 		list.add(new DoubleCoordinatesType<>(0, 0, -1, SubBlockTypeForShare.GAIN_B));
 		list.add(new DoubleCoordinatesType<>(0, 0, -2, SubBlockTypeForShare.GAIN_A));
 		list.add(new DoubleCoordinatesType<>(0, 1, -1, SubBlockTypeForShare.GAIN_A));
@@ -130,7 +130,7 @@ public class HSTubeGain extends CoreMultiBlockPipe {
 				AxisAlignedBB box = GainTubeRenderer.getObjectBoundsAt(new AxisAlignedBB(Math.min(xOne, xTwo), Math.min(yOne, yTwo), Math.min(zOne, zTwo), Math.max(xOne, xTwo), Math.max(yOne, yTwo),
 								Math.max(zOne, zTwo)).offset(-x, -y, -z), orientation);
 				if (box != null) {
-					LPPositionSet<DoubleCoordinates> lpBox = new LPPositionSet<>(DoubleCoordinates.class);
+					LPPositionSet<DoubleCoordinates> lpBox = new LPPositionSet<>(DoubleCoordinates::new);
 					lpBox.addFrom(box);
 					DoubleCoordinates center = lpBox.getCenter();
 					box = new AxisAlignedBB(center.getXCoord() - 0.3D, center.getYCoord() - 0.3D, center.getZCoord() - 0.3D, center.getXCoord() + 0.3D,
@@ -207,7 +207,7 @@ public class HSTubeGain extends CoreMultiBlockPipe {
 			return container.getTile(output);
 		} else {
 			DoubleCoordinates pos = new DoubleCoordinates(0, 1, -3);
-			LPPositionSet<DoubleCoordinates> set = new LPPositionSet<>(DoubleCoordinates.class);
+			LPPositionSet<DoubleCoordinates> set = new LPPositionSet<>(DoubleCoordinates::new);
 			set.add(pos);
 			orientation.rotatePositions(set);
 			TileEntity subTile = pos.add(getLPPosition()).getTileEntity(getWorld());

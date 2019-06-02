@@ -53,7 +53,7 @@ public class HSTubeLine extends CoreMultiBlockPipe {
 
 	@Override
 	public LPPositionSet<DoubleCoordinatesType<SubBlockTypeForShare>> getSubBlocks() {
-		return new LPPositionSet<>(DoubleCoordinatesType.class);
+		return new LPPositionSet<>(DoubleCoordinatesType::createEmpty);
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class HSTubeLine extends CoreMultiBlockPipe {
 	@Override
 	public void addCollisionBoxesToList(List arraylist, AxisAlignedBB axisalignedbb) {
 		DoubleCoordinates pos = getLPPosition();
-		LPPositionSet<DoubleCoordinates> set = new LPPositionSet<>(DoubleCoordinates.class);
+		LPPositionSet<DoubleCoordinates> set = new LPPositionSet<>(DoubleCoordinates::new);
 		set.addFrom(LineTubeRenderer.tubeLine.get(orientation.getRenderOrientation()).bounds().toAABB());
 		set.stream().forEach(o -> o.add(pos));
 		AxisAlignedBB box = set.toABB();
