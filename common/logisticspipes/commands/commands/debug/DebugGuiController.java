@@ -65,13 +65,8 @@ public class DebugGuiController {
 		}
 		IDebugGuiEntry entry = serverDebugger.get(player);
 		if(entry == null) {
-			try {
-				entry = IDebugGuiEntry.create();
-				serverDebugger.put(player, entry);
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-				e.printStackTrace();
-				return;
-			}
+			entry = IDebugGuiEntry.create();
+			if (entry != null) serverDebugger.put(player, entry);
 		}
 		if(entry == null) {
 			System.out.println("DebugGui could not be loaded");
@@ -88,12 +83,8 @@ public class DebugGuiController {
 
 	public void createNewDebugGui(String name, int identification) {
 		if(clientController == null) {
-			try {
-				clientController = IDebugGuiEntry.create();
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-				e.printStackTrace();
-				return;
-			}
+			clientController = IDebugGuiEntry.create();
+			if (clientController == null) return;
 		}
 		synchronized (clientList) {
 			while(clientList.size() <= identification) clientList.add(null);

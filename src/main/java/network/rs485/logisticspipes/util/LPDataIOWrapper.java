@@ -360,7 +360,7 @@ public final class LPDataIOWrapper implements LPDataInput, LPDataOutput {
 	}
 
 	@Override
-	public <T> void writeCollection(@Nullable Collection<T> collection, IWriteListObject<T> handler) {
+	public <T> void writeCollection(@Nullable Collection<? extends T> collection, IWriteListObject<T> handler) {
 		if (collection == null) {
 			writeInt(-1);
 		} else {

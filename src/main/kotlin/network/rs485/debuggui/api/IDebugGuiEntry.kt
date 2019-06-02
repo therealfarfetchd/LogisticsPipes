@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016  RS485
+ * Copyright (c) 2019  RS485
  *
  * "LogisticsPipes" is distributed under the terms of the Minecraft Mod Public
  * License 1.0.1, or MMPL. Please check the contents of the license located in
@@ -8,7 +8,7 @@
  * This file can instead be distributed under the license terms of the
  * MIT license:
  *
- * Copyright (c) 2016  RS485
+ * Copyright (c) 2019  RS485
  *
  * This MIT license was reworded to only match this file. If you use the regular
  * MIT license in your project, replace this copyright notice (this line and any
@@ -35,9 +35,28 @@
  * SOFTWARE.
  */
 
-package network.rs485.logisticspipes.util;
+package network.rs485.debuggui.api
 
-public interface LPSerializable extends LPFinalSerializable {
+import java.util.concurrent.Future
 
-	void read(LPDataInput input);
+abstract class IDebugGuiEntry {
+
+    abstract fun startServerDebugging(obj: Any, outgoingData: IDataConnection, objectIdent: IObjectIdentification): IDataConnection
+
+    abstract fun startClientDebugging(name: String, outgoingData: IDataConnection): Future<IDataConnection>
+
+    abstract fun exec()
+
+    companion object {
+        @JvmStatic
+        fun create(): IDebugGuiEntry? {
+            return try {
+                Class.forName("network.rs485.debuggui.DebugGuiEntry").newInstance() as? IDebugGuiEntry
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
+        }
+    }
+
 }
