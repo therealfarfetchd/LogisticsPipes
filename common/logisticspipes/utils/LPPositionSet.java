@@ -1,21 +1,20 @@
 package logisticspipes.utils;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
 
 import net.minecraft.util.math.AxisAlignedBB;
 
-import lombok.SneakyThrows;
+import kotlin.jvm.functions.Function3;
 
 import network.rs485.logisticspipes.world.DoubleCoordinates;
 
 public class LPPositionSet<T extends DoubleCoordinates> extends HashSet<T> implements IPositionRotateble {
 
 	private static final long serialVersionUID = -3611750920959862658L;
-	private Class<T> clazz;
+	private Function3<Double, Double, Double, T> factory;
 
-	public LPPositionSet(Class<?> clazz) {
-		this.clazz = (Class<T>) clazz;
+	public LPPositionSet(Function3<Double, Double, Double, T> factory) {
+		this.factory = factory;
 	}
 
 	public int getMaxX() {
@@ -120,10 +119,9 @@ public class LPPositionSet<T extends DoubleCoordinates> extends HashSet<T> imple
 		this.forEach(DoubleCoordinates::mirrorZ);
 	}
 
-	@SneakyThrows({NoSuchMethodException.class, IllegalAccessException.class, InvocationTargetException.class, InstantiationException.class})
 	public void addFrom(AxisAlignedBB completeBox) {
-		add(clazz.getConstructor(Double.TYPE, Double.TYPE, Double.TYPE).newInstance(completeBox.minX, completeBox.minY, completeBox.minZ));
-		add(clazz.getConstructor(Double.TYPE, Double.TYPE, Double.TYPE).newInstance(completeBox.maxX, completeBox.maxY, completeBox.maxZ));
+		add(factory.invoke(completeBox.minX, completeBox.minY, completeBox.minZ));
+		add(factory.invoke(completeBox.maxX, completeBox.maxY, completeBox.maxZ));
 	}
 
 	public DoubleCoordinates getCenter() {
@@ -133,8 +131,8 @@ public class LPPositionSet<T extends DoubleCoordinates> extends HashSet<T> imple
 	public T findClosest(DoubleCoordinates posToLookFor) {
 		double distance = Double.MAX_VALUE;
 		T closest = null;
-		for(T posToLookAt:this) {
-			if(closest == null || posToLookFor.distanceTo(posToLookAt) < distance) {
+		for (T posToLookAt : this) {
+			if (closest == null || posToLookFor.distanceTo(posToLookAt) < distance) {
 				closest = posToLookAt;
 				distance = posToLookFor.distanceTo(posToLookAt);
 			}

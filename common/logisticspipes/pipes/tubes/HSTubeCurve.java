@@ -72,7 +72,7 @@ public class HSTubeCurve extends CoreMultiBlockPipe {
 
 	@Override
 	public LPPositionSet<DoubleCoordinatesType<SubBlockTypeForShare>> getSubBlocks() {
-		LPPositionSet<DoubleCoordinatesType<SubBlockTypeForShare>> list = new LPPositionSet<>(DoubleCoordinatesType.class);
+		LPPositionSet<DoubleCoordinatesType<SubBlockTypeForShare>> list = new LPPositionSet<>(DoubleCoordinatesType::createEmpty);
 		list.add(new DoubleCoordinatesType<>(-1, 0, 0, SubBlockTypeForShare.CURVE_INNER_A));
 		list.add(new DoubleCoordinatesType<>(0, 0, 1, SubBlockTypeForShare.CURVE_OUT_A));
 		list.add(new DoubleCoordinatesType<>(-1, 0, 1, SubBlockTypeForShare.NON_SHARE));
@@ -236,7 +236,7 @@ public class HSTubeCurve extends CoreMultiBlockPipe {
 		}
 		if (ori.dir1 == output) {
 			DoubleCoordinates pos = new DoubleCoordinates(-2, 0, 2);
-			LPPositionSet<DoubleCoordinates> set = new LPPositionSet<>(DoubleCoordinates.class);
+			LPPositionSet<DoubleCoordinates> set = new LPPositionSet<>(DoubleCoordinates::new);
 			set.add(pos);
 			orientation.rotatePositions(set);
 			TileEntity subTile = pos.add(getLPPosition()).getTileEntity(getWorld());

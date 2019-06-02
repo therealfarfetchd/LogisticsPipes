@@ -116,7 +116,7 @@ public class ItemLogisticsPipe extends LogisticsItem {
 			CoreMultiBlockPipe multiPipe = (CoreMultiBlockPipe) dummyPipe;
 			boolean isFreeSpace = true;
 			DoubleCoordinates placeAt = new DoubleCoordinates(pos);
-			LPPositionSet<DoubleCoordinatesType<CoreMultiBlockPipe.SubBlockTypeForShare>> globalPos = new LPPositionSet<>(DoubleCoordinatesType.class);
+			LPPositionSet<DoubleCoordinatesType<CoreMultiBlockPipe.SubBlockTypeForShare>> globalPos = new LPPositionSet<>(DoubleCoordinatesType::createEmpty);
 			globalPos.add(new DoubleCoordinatesType<>(placeAt, CoreMultiBlockPipe.SubBlockTypeForShare.NON_SHARE));
 			LPPositionSet<DoubleCoordinatesType<CoreMultiBlockPipe.SubBlockTypeForShare>> positions = multiPipe.getSubBlocks();
 			ITubeOrientation orientation = multiPipe.getTubeOrientation(player, pos.getX(), pos.getZ());
